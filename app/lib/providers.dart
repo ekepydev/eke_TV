@@ -137,11 +137,11 @@ class _Xt {
   String episode(String id, String ext) => '$base/series/$u/$p/$id.$ext';
 }
 
-List<Category> _cats(dynamic j) {
-  final out = <Category>[];
+List<CatEntry> _cats(dynamic j) {
+  final out = <CatEntry>[];
   if (j is List) {
     for (final c in j) {
-      if (c is Map) out.add(Category(_s(c['category_id']), _s(c['category_name'])));
+      if (c is Map) out.add(CatEntry(_s(c['category_id']), _s(c['category_name'])));
     }
   }
   return out;

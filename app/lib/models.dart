@@ -105,8 +105,8 @@ class Channel {
   final String epgId;
 }
 
-class Category {
-  const Category(this.id, this.name);
+class CatEntry {
+  const CatEntry(this.id, this.name);
   final String id;
   final String name;
 }
@@ -266,7 +266,7 @@ class PlayItem {
 
 class CatalogData<T extends CatalogItem> {
   const CatalogData(this.cats, this.items);
-  final List<Category> cats;
+  final List<CatEntry> cats;
   final List<T> items;
 }
 
