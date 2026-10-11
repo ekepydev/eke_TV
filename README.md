@@ -1,41 +1,47 @@
-# STB Player (Flutter) – Android, Android TV, Chromebook, Windows
+# STB Player 1.1 (Flutter)
 
-IPTV aplikacija bez servera: radi direktno s provajderom. Liste (M3U link, Xtream, Portal + MAC)
-i favoriti se čuvaju lokalno na uređaju. Možeš imati više lista i birati među njima.
+IPTV plejer za tvoje vlastite pretplate. Radi bez servera i bez proxyja: Android, Android TV (Axen i sl.),
+Chromebook (Android aplikacija) i Windows. Aplikacija ne sadrži nikakav sadržaj.
 
-## Kako dobiti aplikaciju (besplatno, preko GitHuba)
+## Šta može
 
-1. Napravi besplatan račun na https://github.com i novi repozitorij (npr. `stb-player`).
-2. Uploaduj sadržaj ovog foldera u repozitorij (cijeli folder, uključujući skriveni `.github`).
-3. Idi na **Actions → build → Run workflow** (ili napravi tag, npr. `v1.0.0`).
-   Za tag: u repozitoriju **Releases → Create new release → tag `v1.0.0`**.
-4. Nakon ~10–15 min fajlovi su u **Actions → build → Artifacts** (ili u **Releases** ako si koristio tag).
+**Liste (više njih, biraš u zaglavlju):**
+- M3U link (ako je to zapravo Xtream `get.php?username=..&password=..`, aplikacija to prepozna i uključi filmove, serije i EPG)
+- M3U fajl s uređaja (kopira se u aplikaciju)
+- Xtream Codes (server, korisnik, lozinka)
+- Portal + MAC (Stalker/MAG emulacija)
 
-## Koji fajl koji uređaj
+**TV uživo:** kategorije, pretraga, favoriti, nedavno, program (EPG: sada/slijedi + cijeli raspored),
+zapping, direktan unos broja kanala (0–9), zadnji kanal, automatski ponovni pokušaj kod prekida.
 
-| Uređaj | Fajl |
-|---|---|
-| Starija Android TV (Axen i sl., najčešće 32-bit) | `stb-player-android-armv7.apk` |
-| Noviji telefon / Android TV / Chromebook | `stb-player-android-arm64.apk` |
-| Chromebook s Intel/AMD procesorom | `stb-player-android-x86_64.apk` |
-| Windows 10/11 | `stb-player-windows.zip` – raspakuj cijeli folder, pokreni `stb_player.exe` |
+**Filmovi i serije** (Xtream pretplate): glavna kategorija je **Novo**, ostale kategorije biraš u zaglavlju;
+postere, opis, ocjenu, sezone i epizode; nastavak gledanja od mjesta gdje si stao; automatski prelazak na sljedeću epizodu.
 
-Ako ne znaš koji APK, probaj `armv7` (radi na većini uređaja, samo malo sporije).
+**Plejer:** titlovi i audio zapisi, online titlovi (OpenSubtitles: bosanski, hrvatski, srpski; zadani jezik se bira u Postavkama),
+omjer slike, brzina, tajmer za isključivanje, ekran ne gasi dok gledaš, cijeli ekran (F), jačina, mute.
 
-## Instalacija
+**Postavke:** tamni/svijetli/sistemski izgled, jezik titla, OpenSubtitles ključ, zadani EPG, skok naprijed/nazad,
+**sve prečice se mogu podesiti** (zadano: F cijeli ekran, ↑/↓ jačina, →/← naprijed/nazad ili sljedeći/prethodni kanal,
+M mute, L zadnji kanal, S titlovi, Z omjer slike, I info, Razmaknica pauza, Esc nazad).
 
-- **Android telefon:** otvori APK, dozvoli "instalaciju iz nepoznatih izvora".
-- **Android TV:** prebaci APK na USB ili instaliraj aplikaciju *Downloader* i upiši link do APK-a (iz GitHub Releases), pa instaliraj.
-- **Chromebook:** uključi Android aplikacije (Postavke → Aplikacije → Google Play), a APK instaliraj
-  preko Files aplikacije (dvoklik na APK) ili uz ADB.
+## Kako dobiti aplikaciju (GitHub, besplatno)
 
-## Upravljanje
+1. Uploaduj sadržaj ovog foldera u svoj repozitorij (zamijeni stare fajlove; mora ići i skriveni `.github`).
+2. **Actions → build → Run workflow.** Nakon 10–15 min fajlovi su u **Artifacts** (`android`, `windows`).
+3. Za Axen TV probaj `stb-player-android-armv7.apk`, a za telefon/noviji TV/Chromebook `...arm64.apk`.
+   Windows: raspakuj ZIP i pokreni `stb_player.exe`.
 
-- **Daljinski (TV):** gore/dolje ili CH+/CH- mijenjaju kanal, OK pokazuje/skriva info, Play/Pause, Back vraća na listu.
-- **Telefon:** dodir prikazuje kontrole, prevlačenje gore/dolje mijenja kanal.
-- **Windows:** strelice gore/dolje, razmaknica = pauza, Esc = nazad.
+Ako Actions pokaže grešku, pošalji tekst greške. Korak "Analiza koda" je informativan i ispisuje probleme u kodu.
 
-## Ograničenja prve verzije
+## Titlovi (OpenSubtitles)
 
-Samo live TV (nema VOD/serija/EPG), nema fullscreen dugmeta na Windowsu, nema uvoza M3U fajla (samo link),
-iOS/macOS/Linux/Samsung/LG nisu još uključeni.
+1. Napravi besplatan račun na opensubtitles.com, pa u profilu **API consumers → New consumer** i kopiraj ključ.
+2. Zalijepi ga u **Postavke → Titlovi**. (Korisničko ime i lozinka su opcionalni, a povećavaju dnevni limit preuzimanja.)
+3. U plejeru: ikona titlova → *Traži titlove*, ili automatski ako je uključeno "Automatski uključi titl".
+
+## Ograničenja
+
+- Filmovi i serije rade samo kod Xtream pretplata (M3U/Stalker ih nemaju).
+- EPG za M3U radi ako lista ima `tvg-id` i XMLTV link (iz zaglavlja liste ili iz Postavki). Veliki XMLTV fajlovi (>50 MB) mogu biti spori na slabim TV-ima.
+- Nije uključeno: snimanje, catch-up/timeshift, Chromecast, roditeljska zaštita (vidi prijedloge).
+- Kod nije probano na svim uređajima; prijavi greške s tačnim tekstom.

@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'models.dart';
 
-/// Lokalna pohrana: liste (izvori) i favoriti ostaju na uređaju.
+/// Lokalna pohrana: liste (izvori), favoriti, historija i postavke ostaju na uređaju.
 class Store {
   static late SharedPreferences _p;
 
@@ -31,4 +31,22 @@ class Store {
 
   static Future<void> saveFavs(Set<String> f) =>
       _p.setStringList('favs', f.toList());
+
+  static List<String> recent() => List<String>.of(_p.getStringList('recent') ?? <String>[]);
+
+  static Future<void> pushRecent(String key) async {
+    final l = recent()..remove(key);
+    l.insert(0, key);
+    if (l.length > 30) l.removeRange(30, l.length);
+    await _p.setStringList('recent', l);
+  }
+
+  /// Zapamćena pozicija (ms) za filmove i epizode.
+  static int pos(String key) => _p.getInt('pos.$key') ?? 0;
+
+  static Future<void> setPos(String key, int ms) => _p.setInt('pos.$key', ms);
+
+  static String? settingsJson() => _p.getString('settings');
+
+  static Future<void> saveSettingsJson(String s) => _p.setString('settings', s);
 }
